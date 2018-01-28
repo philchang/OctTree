@@ -1,4 +1,5 @@
 #include "dVector.h"
+#include <math.h>
 
 void crossProduct(dVector& a, dVector& b, dVector& c)
 {

@@ -1,24 +1,35 @@
+#ifndef TREENODE_H
+#define TREENODE_H
+
 #include "dVector.h"
+#include "Particle.h"
+#include <vector>
 #define LEAF_NODE -1
 #define ROOT_NODE 0
-#define MAX_LEAVES
+#define NUM_CHILDREN 8
+#define MAX_PARTICLES_LEAF 32
 
 class TreeNode {
   dVector center, size;
-  int numLeafs;
-  void *particles[MAX_LEAVES]; // array of pointers
-  TreeNode *children;
+  int numParticles;
+  Particle *particles[MAX_PARTICLES_LEAF]; // array of pointers
+  TreeNode *children[NUM_CHILDREN];
   TreeNode *parent; 
 public:
+  bool isLeaf;
 
   TreeNode() {
     parent = ROOT_NODE;
-    children = LEAF_NODE;
+    isLeaf = true;
+    numParticles = 0;
   }
  
-  TreeNode( TreeNode *par) {
+  TreeNode( TreeNode *par, dVector c, dVector s) {
     parent = par;
-    children = LEAF_NODE;
+    isLeaf = true;
+    center = c;
+    size = s;
+    numParticles = 0; 
   }
 
   dVector getCenter() { return center;}
@@ -27,10 +38,13 @@ public:
     lCorner = center - size; rCorner = center + size;
   }
   
-  void addParticle( void *add);
-  void clearParticles();
-  
-  
-   
+  void addParticle( Particle *part);
+  void divideTree();
+  void findParticles(dVector point, double radius, std::vector<Particle*>& pList);
 
+  static TreeNode *root;
+  static void initializeTree( double x, double y, double z, 
+    double xmax, double ymax, double zmax);
 };
+
+#endif
