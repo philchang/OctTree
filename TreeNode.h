@@ -7,7 +7,7 @@
 #define LEAF_NODE -1
 #define ROOT_NODE 0
 #define NUM_CHILDREN 8
-#define MAX_PARTICLES_LEAF 32
+#define MAX_PARTICLES_LEAF 128
 
 class TreeNode {
   dVector center, size;

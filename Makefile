@@ -1,7 +1,7 @@
 TARGET = main
 OBJECTS = main.o TreeNode.o dVector.o
 
-CXX = g++-6
+CXX = g++ -ftree-vectorize -O3
 
 all: $(TARGET)
 
